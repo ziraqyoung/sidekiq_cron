@@ -20,6 +20,11 @@ GEM
     minitest (5.18.0)
     raabro (1.4.0)
     rack (3.0.7)
+    rack-session (2.0.0)
+      rack (>= 3.0.0)
+    rackup (2.1.0)
+      rack (>= 3)
+      webrick (~> 1.8)
     redis-client (0.14.1)
       connection_pool
     sidekiq (7.0.7)
@@ -33,11 +38,14 @@ GEM
       sidekiq (>= 6)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
+    webrick (1.8.1)
 
 PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  rack-session (~> 2.0)
+  rackup (~> 2.1)
   sidekiq (~> 7.0)
   sidekiq-cron (~> 1.10)
 

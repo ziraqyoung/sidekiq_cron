@@ -41,3 +41,17 @@
 - For this we only need to run Sidekiq only requiring `crons.rb`
   `bundle exec sidekiq -C config/sidekiq.yml -r ./lib/crons.rb`
 - If successfull, after every time, an enty is made into `logs/logs.log` a log entry is made in the console
+- You can add as many custom jobs you want in `lib/jobs` dir. Just remember each job must have a `unique class`, must include `Sidekiq::Worker` and define a `perform` method.
+- The register it in `config/schedule.yml` file with keys/values for `cron`, `class`, `queue`
+
+> How to add Web Monitoring
+- Sidekiq comes with an inbuild web monitoring panel, easily runnable and is used to monitor jobs and cron jobs 
+- To run sidekiq/web UI, add the following gems `rackup` & `rack-session` then `bundle install`
+- For Rack, a `rackup` file is need to run `Sidekiq::Web` panel. Add `lib/web/panel.ru`
+- A valid rack session is required, hence for this `securerandom` is needed.
+- To run sidekiq web: `REDIS_PROVIDER=REDIS_URL REDIS_URL=redis://127.0.0.1:6379/1 bundle exec rackup lib/web/panel.ru -o 0.0.0.0 -p 9292`
+or simply: `bundle exec rackup lib/web/panel.ru -o 0.0.0.0 -p 9292`
+- To use Rack session cookie.
+- 1. `require 'rack/session'`
+- 2. `use Rack::Session::Cookie, secret: File.read('.session.key'), same_site: true, max_age: 86400`
+- To run sidekiq web `run Sidekiq::Web`

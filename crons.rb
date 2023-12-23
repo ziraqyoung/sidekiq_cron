@@ -1,6 +1,3 @@
-# Load the required packages
-#
-
 require "yaml"
 require "sidekiq"
 require "sidekiq-cron"
